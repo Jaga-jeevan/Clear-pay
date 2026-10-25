@@ -21,13 +21,14 @@ exports.register = async (req, res) => {
     const accountNumber = 'ACC' + Math.random().toString().slice(2, 12);
 
     // Create user
-    user = new User({
+    const userData = {
       fullName,
       email,
-      phone,
       password: hashedPassword,
       accountNumber
-    });
+    };
+    if (phone) userData.phone = phone;
+    user = new User(userData);
 
     await user.save();
 

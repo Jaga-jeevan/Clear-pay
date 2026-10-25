@@ -12,6 +12,7 @@ const registerValidation = [
     .normalizeEmail(),
 
   body("phone")
+    .optional({ checkFalsy: true })
     .matches(/^[6-9]\d{9}$/)
     .withMessage("Enter a valid 10-digit Indian mobile number"),
 

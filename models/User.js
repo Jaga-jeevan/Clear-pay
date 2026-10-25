@@ -75,9 +75,11 @@ const UserSchema = new mongoose.Schema(
 
       type:String,
 
-      required:true,
+      required:false,
 
       unique:true,
+
+      sparse:true,
 
       trim:true,
 

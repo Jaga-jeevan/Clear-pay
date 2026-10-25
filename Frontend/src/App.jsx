@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 
 // Pages
 import Login from './pages/Login'
+import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard'
 import Transfer from './pages/Transfer'
 import Beneficiaries from './pages/Beneficiaries'
@@ -37,6 +38,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/register" element={<SignUp />} />
         
         <Route path="/dashboard" element={
           <ProtectedRoute>

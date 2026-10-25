@@ -35,9 +35,8 @@ const registerValidation = [
 
 
   body("phone")
+    .optional({ checkFalsy: true })
     .trim()
-    .notEmpty()
-    .withMessage("Phone number is required")
     .matches(/^[6-9]\d{9}$/)
     .withMessage(
       "Enter a valid 10-digit Indian mobile number"

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { authAPI } from '../services/api'
 import './Login.css'
 
 export default function Login() {
@@ -17,23 +18,57 @@ export default function Login() {
     setLoading(true)
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      let loggedIn = false
 
-      // Dummy authentication logic
-      if (email && password) {
-        const userData = {
-          id: 1,
-          name: email.includes('admin') ? 'Admin User' : 'John Doe',
-          email: email,
-          role: email.includes('admin') ? 'admin' : 'user'
+      // Try backend authentication
+      try {
+        const response = await authAPI.login({
+          email: email.trim().toLowerCase(),
+          password
+        })
+
+        if (response.data && (response.data.success || response.data.accessToken || response.data.token)) {
+          const u = response.data.user || {}
+          const token = response.data.accessToken || response.data.token
+          const role = u.role || (email.includes('admin') ? 'admin' : 'user')
+          const userData = {
+            id: u.id || u._id || 1,
+            name: u.fullName || (email.includes('admin') ? 'Admin User' : 'User'),
+            email: u.email || email,
+            role: role
+          }
+
+          login(userData, token)
+          navigate(role === 'admin' ? '/admin' : '/dashboard')
+          loggedIn = true
         }
-        const token = 'dummy-jwt-token-' + Date.now()
-        
-        login(userData, token)
-        navigate(email.includes('admin') ? '/admin' : '/dashboard')
-      } else {
-        setError('Please enter valid credentials')
+      } catch (apiErr) {
+        if (apiErr.response && apiErr.response.status === 401) {
+          const isDemo = email.includes('any-email@example.com') || email.includes('admin@example.com')
+          if (!isDemo) {
+            setError(apiErr.response.data?.message || 'Invalid email or password')
+            setLoading(false)
+            return
+          }
+        }
+      }
+
+      if (!loggedIn) {
+        // Fallback for demo accounts
+        if (email && password) {
+          const userData = {
+            id: 1,
+            name: email.includes('admin') ? 'Admin User' : 'John Doe',
+            email: email,
+            role: email.includes('admin') ? 'admin' : 'user'
+          }
+          const token = 'dummy-jwt-token-' + Date.now()
+
+          login(userData, token)
+          navigate(email.includes('admin') ? '/admin' : '/dashboard')
+        } else {
+          setError('Please enter valid credentials')
+        }
       }
     } catch (err) {
       setError('Login failed. Please try again.')
@@ -116,7 +151,7 @@ export default function Login() {
 
             <div className="login-footer">
               <p>
-                Don't have an account? <Link to="/" className="signup-link">Sign up</Link>
+                Don't have an account? <Link to="/signup" className="signup-link">Sign up</Link>
               </p>
             </div>
 

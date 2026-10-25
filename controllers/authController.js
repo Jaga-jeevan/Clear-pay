@@ -226,172 +226,67 @@ await generateAccountNumber();
 
 
 
-const user =
+const userData = {
+  fullName,
+  email: email.toLowerCase(),
+  password,
+  accountNumber
+};
+if (phone) {
+  userData.phone = phone;
+}
 
-await User.create({
+const user = await User.create(userData);
 
-fullName,
-
-
-email:
-
-email.toLowerCase(),
-
-
-phone,
-
-
-password,
-
-
-accountNumber
-
-
-});
-
-
-
-
-
-
-
-const accessToken =
-
-generateAccessToken(
-
-user._id
-
-);
-
-
-
-
-
-
-
-const refreshToken =
-
-generateRefreshToken(
-
-user._id
-
-);
-
-
-
-
-
-
+const accessToken = generateAccessToken(user._id);
+const refreshToken = generateRefreshToken(user._id);
 
 await saveRefreshToken(
-
-user._id,
-
-refreshToken,
-
-req
-
+  user._id,
+  refreshToken,
+  req
 );
 
-
-
-
-
-
-
-// Welcome Email
-
-await sendWelcomeEmail(
-
-user.email,
-
-user.fullName
-
-);
-
-
-
-
-
-
+// Welcome Email (safely attempted)
+try {
+  await sendWelcomeEmail(
+    user.email,
+    user.fullName
+  );
+} catch (emailErr) {
+  console.warn("Welcome email could not be sent:", emailErr.message);
+}
 
 return res.status(201).json({
-
-success:true,
-
-
-message:
-
-"Account created successfully",
-
-
-accessToken,
-
-
-refreshToken,
-
-
-
-user:{
-
-
-id:user._id,
-
-
-fullName:user.fullName,
-
-
-email:user.email,
-
-
-phone:user.phone,
-
-
-accountNumber:user.accountNumber,
-
-
-balance:user.balance,
-
-
-role:user.role
-
-
-
-}
-
-
+  success: true,
+  message: "Account created successfully",
+  accessToken,
+  refreshToken,
+  user: {
+    id: user._id,
+    fullName: user.fullName,
+    email: user.email,
+    phone: user.phone,
+    accountNumber: user.accountNumber,
+    balance: user.balance,
+    role: user.role
+  }
 });
 
+} catch (error) {
+  console.error("Register Error:", error);
 
+  if (error.code === 11000) {
+    return res.status(409).json({
+      success: false,
+      message: "Email is already registered"
+    });
+  }
 
-
-
-}
-
-catch(error){
-
-
-console.error(
-
-"Register Error:",
-
-error
-
-);
-
-
-
-return res.status(500).json({
-
-success:false,
-
-message:
-
-"Internal Server Error"
-
-});
-
-
+  return res.status(500).json({
+    success: false,
+    message: error.message || "Internal Server Error"
+  });
 }
 
 
