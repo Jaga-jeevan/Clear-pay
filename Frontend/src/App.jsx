@@ -4,7 +4,6 @@ import { useAuth } from './context/AuthContext'
 import Navbar from './components/Navbar'
 
 // Pages
-import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Transfer from './pages/Transfer'
@@ -36,7 +35,7 @@ function App() {
     <Router>
       {isAuthenticated && <Navbar />}
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         
         <Route path="/dashboard" element={
