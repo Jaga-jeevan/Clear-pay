@@ -1,0 +1,103 @@
+.transfer-page {
+  padding: 40px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+
+.transfer-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.transfer-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.transfer-form h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.transfer-info h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-item span {
+  color: var(--text-secondary);
+}
+
+.fraud-detection-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fraud-detection-section h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.no-analysis {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+
+.security-features h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.features-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.features-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.features-list li span:first-child {
+  color: var(--secondary-color);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .transfer-container {
+    grid-template-columns: 1fr;
+  }
+}

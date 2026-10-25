@@ -1,0 +1,41 @@
+{
+  "model_type": "Logistic Regression / Weighted Feature Ensemble",
+  "dataset": "transactions_dataset.csv (10,000 samples)",
+  "features": [
+    "amount_ratio",
+    "new_beneficiary",
+    "velocity_score",
+    "time_anomaly",
+    "device_risk_score",
+    "fraud_history"
+  ],
+  "weights": [
+    0.4916019703215925,
+    0.14375644303632767,
+    0.4678466071400403,
+    0.15548771743054596,
+    0.11698875425653889,
+    0.3100510241236852
+  ],
+  "bias": -2.8127447585089302,
+  "relative_importance": {
+    "amount_ratio": 0.292,
+    "new_beneficiary": 0.085,
+    "velocity_score": 0.278,
+    "time_anomaly": 0.092,
+    "device_risk_score": 0.069,
+    "fraud_history": 0.184
+  },
+  "performance_metrics": {
+    "accuracy": 0.999,
+    "precision": 1.0,
+    "recall": 0.9830508474576272,
+    "f1_score": 0.9914529914529915,
+    "confusion_matrix": {
+      "TP": 116,
+      "FP": 0,
+      "TN": 1882,
+      "FN": 2
+    }
+  }
+}

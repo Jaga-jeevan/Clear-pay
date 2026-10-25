@@ -1,0 +1,126 @@
+.transaction-card {
+  display: flex;
+  padding: 12px 16px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  transition: border-color 0.2s ease;
+}
+
+.transaction-card:hover {
+  border-color: #cbd5e1;
+}
+
+.transaction-details {
+  flex: 1;
+}
+
+.transaction-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.transaction-header h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.transaction-recipient {
+  display: block;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.transaction-id {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+  background: var(--light-bg);
+  padding: 1px 4px;
+  border-radius: 3px;
+  border: 1px solid var(--border-color);
+}
+
+.transaction-amount {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.transaction-amount.credit {
+  color: var(--secondary-color);
+}
+
+.transaction-amount.debit {
+  color: var(--text-primary);
+}
+
+.transaction-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.meta-separator {
+  color: #cbd5e1;
+}
+
+.transaction-status {
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: capitalize;
+}
+
+.status-success {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.status-warning {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.status-danger {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.transaction-fraud {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.fraud-label {
+  color: var(--text-secondary);
+}
+
+.fraud-score {
+  font-weight: 600;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.fraud-score.low {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.fraud-score.medium {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.fraud-score.high {
+  background: #fef2f2;
+  color: #dc2626;
+}
